@@ -1,0 +1,19 @@
+#!/bin/bash
+
+HERE="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+LIBPATH="${HERE}/jars"
+BINPATH="${HERE}/lib-bin"
+SCAPATH="${HERE}/scala"
+OUTDIR="${HERE}/classes"
+
+LEONCLASSPATH="${SCAPATH}/lib/scala-library.jar:${SCAPATH}/lib/scala-compiler.jar:${LIBPATH}/purescala-definitions_2.9.0-1-1.0.jar:${LIBPATH}/funcheck-plugin_2.9.0-1-1.0.jar:${LIBPATH}/z3.jar"
+
+SCALACCLASSPATH="${LIBPATH}/funcheck-plugin_2.9.0-1-1.0.jar:${LIBPATH}/purescala-definitions_2.9.0-1-1.0.jar:${LIBPATH}/constraint-programming-plugin_2.9.0-1-1.0.jar"
+
+mkdir -p ${OUTDIR}
+
+LD_LIBRARY_PATH=${BINPATH} \
+java -Xmx1024M \
+    -Dscala.home=${SCAPATH} \
+    -classpath ${LEONCLASSPATH} \
+  scala.tools.nsc.Main -Xplugin:${LIBPATH}/constraint-programming-plugin_2.9.0-1-1.0.jar -classpath ${SCALACCLASSPATH} -d ${OUTDIR} $@

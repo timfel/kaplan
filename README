@@ -1,0 +1,22 @@
+This is a precompiled version of Kaplan. It comes with its own version of Scala
+(2.9.0.1), so the only dependencies are Java (6+) and Bash.
+
+To compile a source file, run
+
+    $ scalac-kaplan src.scala
+
+To simplify problems related to multiple classpaths, all classes are generated
+in a centralized "classes" directory.
+
+To run a program, use
+
+    $ scala-kaplan MainObject
+
+...where MainObject is a Scala object that defines a "main" method. Do not
+worry about the classpath; the directory with all generated classes is included
+automatically.
+
+As an example, you can try:
+
+    $ scalac-kaplan PaperExamples.scala
+    $ scala-kaplan PaperExamples
